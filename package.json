@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.0.17"
+  },
+  "scripts": {
+    "dev": "cd my-app && npm run dev"
+  }
+}
