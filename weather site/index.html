@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body {
+              margin: 0;
+              overflow: hidden;
+            }
+            #circle {
+              position: absolute;
+              width: 120px;
+              height: 120px;
+              /*background-color: yellow;*/
+              border-radius: 50%;
+              z-index: 10;
+            }
+        </style>
+        <title>Weather - Home</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body style="background-color: skyblue;">
+
+        <div id="circle"></div>
+
+        <div style="margin-left: auto; margin-right:auto;margin-top:10px;width: fit-content;">
+            <a class = "menuitem" style="color:navy;"href="home.html">Home</a>
+            <div class="menu_break">|</div>
+            <a class = "menuitem" href="current_weather.html">Current Weather</a>
+            <div class="menu_break">|</div>
+            <a class = "menuitem" href="forcast.html">Types</a>
+        </div>
+
+        <div class="container" id="container">
+            <div class="homebox span-row">Examples of Weather
+                <ul class="myUL">
+                    <li>Rain</li>
+                    <li>Snow</li>
+                    <li>Thunder</li>
+                    <li>Lightning</li>
+                    <li>Wind</li>
+                    <li>Fog</li>
+                    <li>Hail</li>
+                    <li>Dust Storm</li>
+                </ul>
+            </div>
+            <div class="homebox span-col">Definition of Weather: the state of the atmosphere with respect to heat or cold, wetness or dryness, calm or storm, clearness or cloudiness</div>
+            <div class="homebox span-col">Definition of Precepitation: any liquid or frozen water that forms in the atmosphere and falls back to the earth </div>
+        </div>
+
+
+        <script>
+            const sun = document.getElementById("circle");
+            const now = new Date();
+            const hour = now.getHours();
+        
+            function mapValue(hour) {
+                /**
+                 * Maps a value from 0 to 23 into a range of 0 to 12 using modular arithmetic.
+                 * The values wrap like a clock, with 8 mapping to 0, 20 mapping to 0,
+                 * and other values following a similar pattern.
+                 */
+                return (hour - 6 + 12) % 12;
+            }
+        
+            function calculateAngle(hour) {
+                /**
+                 * Calculates the angle based on the mapped value of the hour.
+                 * The angle is pi plus the mapped value as a fraction of a full circle (2 * pi).
+                 */
+                const mappedValue = mapValue(hour);
+                const angle = Math.PI + (Math.PI / 12) * mappedValue;
+                    return angle;
+            }
+
+            var w = window.innerWidth;
+            var h = window.innerHeight;
+            let centerX = w / 2;
+            let centerY = h; 
+            let circleRadius = 20; 
+            let radius = (w / 2) - circleRadius; 
+            let angle = calculateAngle(hour); // Start at the calculated angle based on the current hour
+            let speed = 0.002;
+
+            function drawCircle() {
+                let x = centerX + radius * Math.cos(angle);
+                let y = centerY + radius * Math.sin(angle);
+
+                circle.style.left = `${x - circleRadius}px`;  
+                circle.style.top = `${y - circleRadius}px`; 
+
+                angle += speed;
+                requestAnimationFrame(drawCircle);
+            }
+
+                drawCircle();
+        </script>
+
+        <script type="text/javascript" src="javascript.js"></script>
+    </body>
+</html>
